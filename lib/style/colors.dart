@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 
 class AppColors {
 
-  static const _primaryColorValue = 0xFFD0DAF6;
+  static const _primaryColorValue = 0xFFD5C5D0;
 
   static const PRIMARY_COLOR = Color(_primaryColorValue);
   static const ACCENT_COLOR = Color(0xFFF2E9EF);
-  static const LOGO_COLOR = Color(0xFF546491);
+  static const LOGO_COLOR = Color(0xFF744065);
 
   static const PRIMARY_SWATCH = MaterialColor(
     _primaryColorValue,
@@ -26,6 +26,15 @@ class AppColors {
       800: Color.fromRGBO(208, 218, 246, 0.9),
       900: Color.fromRGBO(208, 218, 246, 1),
     },
+  );
+
+  static const BACKGROUND_GRADIENT = LinearGradient(
+    colors: [
+      Color(_primaryColorValue),
+      Color(0xFFF1EBEF),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 
 }
