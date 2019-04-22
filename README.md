@@ -4,13 +4,13 @@ A Flutter application for the ImmiGreat app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To download the project:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+1. Clone this repository to your local dev machine.
+2. Navigate into the `immigreat_app` directory.
+3. Download the `google-services.json` file from Firebase.
+4. Add the `google-services.json` file to the `android/app` directory, alongside the app-level `build.gradle` file
+5. Download the `GoogleService-Info.plist` file from Firebase.
+6. Add the `GoogleService-Info.plist` to the `ios/Runner` directory alongside the `Info.plist` file
+7. Download `Android Studio v3.3.2` or later.
+8. Open the ImmiGreat app in Android Studio.
