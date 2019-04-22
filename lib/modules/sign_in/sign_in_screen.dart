@@ -14,35 +14,40 @@ class SignInScreen extends StatelessWidget {
     body: _buildBody(context),
   );
 
-  Widget _buildBody(context) => Container(
-    decoration: BoxDecoration(
-      gradient: AppColors.BACKGROUND_GRADIENT,
-    ),
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              "ImmiGreat",
-              style: Theme.of(context).textTheme.display2.copyWith(
-                fontFamily: AppTheme.LOGO_FONT,
-                color: AppColors.LOGO_COLOR,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 24.0),
-            child: Text(
-              "Move with peace of mind"
-            ),
-          ),
-          _buildGoogleButton(),
-          _buildEmailButton(),
-        ],
+  Widget _buildBody(context) {
+    List<Widget> children = [
+      _buildLogo(context),
+      _buildTagline(),
+      _buildGoogleButton(),
+      _buildEmailButton(),
+    ];
+    return Container(
+      decoration: BoxDecoration(
+        gradient: AppColors.BACKGROUND_GRADIENT,
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogo(context) => Padding(
+    padding: EdgeInsets.only(bottom: 8.0),
+    child: Text(
+      "ImmiGreat",
+      style: Theme.of(context).textTheme.display2.copyWith(
+        fontFamily: AppTheme.LOGO_FONT,
+        color: AppColors.LOGO_COLOR,
       ),
     ),
+  );
+
+  Widget _buildTagline() => Padding(
+    padding: EdgeInsets.only(bottom: 24.0),
+    child: Text("Move with peace of mind"),
   );
 
   Widget _buildGoogleButton() => FittedBox(

@@ -11,11 +11,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:immigreat_app/modules/sign_in/sign_in_screen.dart';
 
 void main() {
+  var testSignInScreen = new MediaQuery(
+    data: MediaQueryData(),
+    child: MaterialApp(home: SignInScreen()),
+  );
   testWidgets('Load sign in screen', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(SignInScreen());
-
-    // Verify that our counter starts at 0.
+    await tester.pumpWidget(testSignInScreen);
     expect(find.text('ImmiGreat'), findsOneWidget);
   });
 }
