@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jaytolentino/immigreat-mobile.svg?branch=master)](https://travis-ci.com/jaytolentino/immigreat-mobile)
+
 # immigreat_app
 
 A Flutter application for the ImmiGreat app
