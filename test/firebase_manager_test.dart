@@ -10,7 +10,7 @@ import 'package:immigreat_app/services/flavors.dart';
 import 'package:immigreat_app/services/firebase_manager.dart';
 
 void main() {
-  testWidgets('Initialize logger', (WidgetTester tester) async {
+  testWidgets('Initialize firebase manager', (WidgetTester tester) async {
     await tester.pumpWidget(
         AppConfig(
             flavor: Flavor.DEV,
