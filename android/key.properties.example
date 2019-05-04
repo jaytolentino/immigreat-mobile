@@ -1,0 +1,4 @@
+storePassword=<retrieve password>
+keyPassword=<retrieve password>
+keyAlias=key
+storeFile=<enter location of keystore file>
