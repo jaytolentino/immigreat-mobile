@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/jaytolentino/immigreat-mobile.svg?branch=master)](https://travis-ci.com/jaytolentino/immigreat_app)
+[![Build Status](https://travis-ci.com/jaytolentino/immigreat_app.svg?branch=master)](https://travis-ci.com/jaytolentino/immigreat_app)
 
 # immigreat_app
 
