@@ -4,22 +4,50 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:immigreat_app/modules/sign_in/sign_in_presenter.dart';
+import 'package:immigreat_app/modules/sign_in/sign_in_view.dart';
+import 'package:immigreat_app/modules/sign_in/widgets/index.dart';
 import 'package:immigreat_app/style/colors.dart';
 import 'package:immigreat_app/style/theme.dart';
 
 class SignInScreen extends StatelessWidget {
 
+  SignInScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: _buildBody(context),
+    body: SignInBody(),
   );
 
-  Widget _buildBody(context) {
+}
+
+class SignInBody extends StatefulWidget {
+
+  SignInBody({ Key key }) : super(key: key);
+
+  @override
+  State createState() => SignInBodyState();
+
+}
+
+class SignInBodyState extends State<SignInBody> implements SignInView {
+
+  SignInPresenter _presenter;
+
+  SignInBodyState() {
+    _presenter = SignInPresenter(this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     List<Widget> children = [
-      _buildLogo(context),
+      _buildLogo(),
       _buildTagline(),
-      _buildGoogleButton(),
-      _buildEmailButton(),
+      GoogleSignInButton(onPressed: () {
+        _presenter.signInWithGoogle();
+      }),
     ];
     return Container(
       decoration: BoxDecoration(
@@ -34,7 +62,7 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLogo(context) => Padding(
+  Widget _buildLogo() => Padding(
     padding: EdgeInsets.only(bottom: 8.0),
     child: Text(
       "ImmiGreat",
@@ -50,42 +78,17 @@ class SignInScreen extends StatelessWidget {
     child: Text("Move with peace of mind"),
   );
 
-  Widget _buildGoogleButton() => FittedBox(
-    fit: BoxFit.contain,
-    child: MaterialButton(
-      color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      minWidth: 240.0,
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Image(image: AssetImage("images/logo_google_g.png")),
-          ),
-          Text("Sign in with Google"),
-        ],
-      ),
-      onPressed: () {},
-    ),
-  );
+  @override
+  void onSignInSuccess() {
+    SnackBar snackBar = SnackBar(content: Text("Success!"));
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
 
-  Widget _buildEmailButton() => FittedBox(
-    fit: BoxFit.contain,
-    child: MaterialButton(
-      color: AppColors.ACCENT_COLOR,
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      minWidth: 240.0,
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Icon(Icons.email, color: AppColors.PRIMARY_SWATCH,),
-          ),
-          Text("Sign in with email"),
-        ],
-      ),
-      onPressed: () {},
-    ),
-  );
-
+  @override
+  void onSignInFailed() {
+    SnackBar snackBar = SnackBar(
+      content: Text("There was an issues signing you in with Google.")
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
 }

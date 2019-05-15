@@ -2,8 +2,6 @@
  * Copyright ImmiGreat (c) 2019.
  */
 
-import 'package:meta/meta.dart';
-
 import 'package:immigreat_app/services/flavors.dart';
 
 class Logger {
@@ -13,7 +11,7 @@ class Logger {
 
   factory Logger() {
     if (_instance == null) {
-      throw new Exception("Must initialize Logger first");
+      throw Exception("Must initialize Logger first");
     }
     return _instance;
   }
@@ -26,19 +24,19 @@ class Logger {
     if (_instance != null) {
       return;
     }
-    _instance = new Logger.__internal(flavor);
-  }
-
-  static Logger get instance {
-    if (_instance == null) {
-      throw new Exception("Must initialize Logger first");
-    }
-    return _instance;
+    _instance = Logger.__internal(flavor);
   }
 
   void log(String text, { Map<String, dynamic> params }) {
-    print('(${_flavor.toString()}) $text');
-    print(params.toString());
+    if (_flavor.isLocal()) {
+      print('(${_flavor.toString()}) $text');
+      print(params.toString());
+      return;
+    }
   }
 
+}
+
+class Events {
+  static const String SIGNED_IN_WITH_GOOGLE = "sign_in_google";
 }

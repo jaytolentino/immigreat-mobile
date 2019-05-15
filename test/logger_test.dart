@@ -17,7 +17,7 @@ void main() {
         child: ImmiGreatApp()
       )
     );
-    Logger logger = Logger.instance;
+    Logger logger = Logger();
     expect(logger, isNotNull);
   });
 }
