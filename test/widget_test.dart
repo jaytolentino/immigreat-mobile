@@ -9,15 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:redux/redux.dart';
 
+import 'package:immigreat_app/models/models.dart';
+import 'package:immigreat_app/modules/app_config.dart';
+import 'package:immigreat_app/modules/immigreat_app.dart';
 import 'package:immigreat_app/modules/sign_in/sign_in_screen.dart';
-import 'package:immigreat_app/modules/sign_in/widgets/index.dart';
+import 'package:immigreat_app/modules/sign_in/google_sign_in_button.dart';
+import 'package:immigreat_app/reducers/reducers.dart';
 import 'package:immigreat_app/services/auth_manager.dart';
 import 'package:immigreat_app/services/flavors.dart';
 import 'package:immigreat_app/services/logger.dart';
 
 void main() {
   testWidgets('Load sign in screen', (WidgetTester tester) async {
+    final Store<AppState> store = Store<AppState>(
+      loginReducer,
+      initialState: AppState.initial(),
+    );
+
     // TODO mock AuthManager
     AuthManager.init(
       firebaseAuth: FirebaseAuth.instance,
@@ -27,9 +37,9 @@ void main() {
     // TODO mock Logger
     Logger.init(Flavor.DEV);
 
-    var testSignInScreen = new MediaQuery(
-      data: MediaQueryData(),
-      child: MaterialApp(home: SignInScreen()),
+    var testSignInScreen = AppConfig(
+      flavor: Flavor.DEV,
+      child: ImmiGreatApp(store: store, home: SignInScreen())
     );
 
     await tester.pumpWidget(testSignInScreen);

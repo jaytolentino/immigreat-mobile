@@ -3,10 +3,11 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:immigreat_app/modules/sign_in/sign_in_presenter.dart';
-import 'package:immigreat_app/modules/sign_in/sign_in_view.dart';
-import 'package:immigreat_app/modules/sign_in/widgets/index.dart';
+import 'package:immigreat_app/actions.dart';
+import 'package:immigreat_app/models/models.dart';
+import 'package:immigreat_app/modules/sign_in/google_sign_in_button.dart';
 import 'package:immigreat_app/style/colors.dart';
 import 'package:immigreat_app/style/theme.dart';
 
@@ -18,51 +19,24 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: SignInBody(),
-  );
-
-}
-
-class SignInBody extends StatefulWidget {
-
-  SignInBody({ Key key }) : super(key: key);
-
-  @override
-  State createState() => SignInBodyState();
-
-}
-
-class SignInBodyState extends State<SignInBody> implements SignInView {
-
-  SignInPresenter _presenter;
-
-  SignInBodyState() {
-    _presenter = SignInPresenter(this);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> children = [
-      _buildLogo(),
-      _buildTagline(),
-      GoogleSignInButton(onPressed: () {
-        _presenter.signInWithGoogle();
-      }),
-    ];
-    return Container(
+    body: Container(
       decoration: BoxDecoration(
         gradient: AppColors.BACKGROUND_GRADIENT,
       ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: children,
+          children: [
+            _buildLogo(context),
+            _buildTagline(),
+            _buildGoogleSignInButton(),
+          ],
         ),
       ),
-    );
-  }
+    )
+  );
 
-  Widget _buildLogo() => Padding(
+  Widget _buildLogo(context) => Padding(
     padding: EdgeInsets.only(bottom: 8.0),
     child: Text(
       "ImmiGreat",
@@ -78,17 +52,15 @@ class SignInBodyState extends State<SignInBody> implements SignInView {
     child: Text("Move with peace of mind"),
   );
 
-  @override
-  void onSignInSuccess() {
-    SnackBar snackBar = SnackBar(content: Text("Success!"));
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
+  Widget _buildGoogleSignInButton() => StoreConnector<AppState, VoidCallback>(
+    converter: (store) {
+      return () => store.dispatch(SignInAction(true));
+    },
+    builder: (BuildContext context, VoidCallback callback) {
+      return GoogleSignInButton(
+        onPressed: callback
+      );
+    },
+  );
 
-  @override
-  void onSignInFailed() {
-    SnackBar snackBar = SnackBar(
-      content: Text("There was an issues signing you in with Google.")
-    );
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
 }
